@@ -1,3 +1,13 @@
+<?php
+session_start();
+
+// Проверяем, авторизован ли пользователь как администратор
+if (!isset($_SESSION['loggedin']) || $_SESSION['name'] !== 'admin') {
+    // Если пользователь не администратор, перенаправляем его на index.php
+    header('Location: index.php');
+    exit;
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,6 +17,12 @@
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
+
+<div class="float-right mb-3">
+    <a href="./accounts.php" class="btn btn-primary mr-2">View Users</a>
+    <a href="./index.php" class="btn btn-secondary">Home</a>
+    <a href="./phplogin/logout.php" class="btn btn-danger">Logout</a>
+</div>
 
 <div class="container mt-5">
     <h1>Add New Product</h1>
