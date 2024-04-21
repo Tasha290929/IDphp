@@ -1,0 +1,236 @@
+
+/* Product */
+.product {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 100px;
+    margin-bottom: 100px;
+}
+
+ .block_title {
+    font-size: 60px;
+    margin-bottom: 50px;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+.prod-iteam {
+    padding: 30px;
+    background-color: #5a5c97;
+    border-radius: 10px;
+}
+
+.product_wr {
+    width: 80%; /* Adjust the width as needed */
+    display: flex;
+
+}
+
+.pr_img {
+    width: 55%;
+    padding: 20px;
+    background-color: #5a5c97;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center; /* Center the content horizontally */
+    align-items: center; /* Center the content vertically */
+    margin: 0 auto;
+    box-shadow: 10px 10px 7px rgba(40, 37, 56, 0.5);
+}
+.pr-picture {
+    height: 400px;
+    border-radius: 10px;
+    border: 1px solid #ffffff; /* 1-pixel border with white color, adjust as needed */
+    transition: height 0.2s ease;
+}
+
+.pr-picture:hover{
+    height: 410px;
+}
+
+.prod_info {
+    width: 35%;
+    padding: 0 10px;
+}
+
+
+
+/* Button styling */
+.btm {
+    min-width: 200px;
+    height: 50px;
+    display: inline-flex;
+    justify-content: center;
+    font-size: 15px;
+    align-items: center;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    border-radius: 10px;
+    transition: background-color .2s ease;
+    border: 0;
+    cursor: pointer;
+    background-color: #a18ce2;
+    border: 1px solid #ffffff;
+    transition: background-color .2s ease, min-width 0.2s ease, height 0.2s ease;
+}
+
+.btm:hover {
+    background-color: #a59ee0;
+    min-width: 205px;
+    height: 55px;
+}
+
+
+.price{
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 25px;
+}
+
+
+.description{
+    margin-left: 10%;
+    margin-right: 10%;
+}
+
+.description .block_title {
+    color: #000000;
+    font-family: 'Trebuchet MS', Helvetica;
+    text-align: center; /* Center the text horizontally */
+    display: flex;
+    align-items: center; /* Center the text vertically */
+    justify-content: center; /* Center the text horizontally */
+}
+
+.description .text{
+font-size: 25px;
+color: #030f21;
+}
+
+
+/**********************************/
+* {box-sizing: border-box}
+body {
+margin:0}
+  .mySlides {
+    display: none;
+  }
+  
+  .mySlides img {
+    vertical-align: middle;
+    height: 500px;
+    border-style: double;
+    border-color: #030f21;
+    box-shadow: 10px 10px 7px rgba(40, 37, 56, 0.5);
+  }
+  
+  .slideshow-container {
+    max-width: 850px;
+    position: relative;
+    margin: auto;
+  }
+  
+  .prev, .next {
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    width: auto;
+    padding: 16px;
+    margin-top: -22px;
+    color: #030f21;
+    font-weight: bold;
+    font-size: 18px;
+    transition: 0.6s ease;
+    border-radius: 0 3px 3px 0;
+    user-select: none;
+
+
+  }
+  
+  .next {
+    right: 0;
+    border-radius: 3px 0 0 3px;
+  }
+  
+  .prev:hover, .next:hover {
+    background-color:rgba(235, 220, 237, 0.8);
+  }
+  
+  .numbertext {
+    color: #ffffff;
+    font-size: 12px;
+    padding: 8px 12px;
+    position: absolute;
+    top: 0;
+  }
+  
+  .dot {
+    cursor: pointer;
+    height: 15px;
+    width: 15px;
+    margin: 0 2px;
+    background-color: #999999;
+    border-radius: 50%;
+    display: inline-block;
+    transition: background-color 0.6s ease;
+  }
+  
+  .active, .dot:hover {
+    background-color: #111111;
+  }
+  
+  .fade {
+    animation-name: fade;
+    animation-duration: 1.5s;
+  }
+  
+  @keyframes fade {
+    from { opacity: .4; } 
+    to { opacity: 1; }
+  }
+  
+  @media only screen and (max-width: 300px) {
+    .prev, .next, .text {
+      font-size: 11px;
+    }
+  }
+  
+
+
+  @media (max-width: 700px) {
+  
+
+
+
+
+}
+
+
+
+
+/* Стили для поискового контейнера */
+.search-container {
+  text-align: center;
+  margin-top: 50px;
+}
+.search-container input[type="text"] {
+  padding: 10px;
+  width: 300px;
+  border: none;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  font-size: 16px;
+  outline: none;
+}
+.search-container input[type="submit"] {
+  background-color: #a18ce2;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+}
+.search-container input[type="submit"]:hover {
+  background-color: #7e5da4;
+}

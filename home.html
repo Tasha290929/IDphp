@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="C:\Users\ivane\Desktop\appwill\home.css">
+    <meta charset="UTF-8">
+    <title>APPwill</title>
+    <style>
+        /*фон*/
+        body{
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(to bottom right, #000000, #030f21, #263356);
+            background-repeat: no-repeat;
+            overflow-x: hidden;
+            align-items: center;
+            justify-content: center;
+            font-family: Arial, sans-serif;
+            color: #fff;
+            /* Цвет текста на фоне градиента */
+            min-height: 100vh;
+        }
+        
+    </style>
+</head>
+
+<body>
+    <header>
+      <div id="logo" onclick="slowScroll('#top')">  
+        <img src="logo1.png" alt="Logo"> <!-- Замените "your-logo.png" на путь к вашему логотипу -->
+      </div>
+        <div id="about"> 
+            <a href="#" onclick="slowScroll('#main')">Home</a>
+            <a href="#" onclick="slowScroll('#apps')">Apps</a>
+            <a href="#" onclick="slowScroll('#blog')">Blog</a>
+            <a href="#" onclick="slowScroll('#aboutt')">About</a>
+            <a href="#" onclick="slowScroll('#contact')">Contact</a>
+
+        </div>
+    </header>
+
+ <div id="top">
+    <pre>
+
+
+
+
+
+
+    <div id="intr">
+Marketplace for 
+selling and buying 
+your app or game</div>
+<div ><h1>
+Find the best android and IOS app which generate profit
+Search Online Businesses for Sale
+        </h1></div>
+        <a href="#" onclick="slowScroll('#apps')"><div id="button">Scroll below</div></a>   
+</pre>
+ 
+ <div class="container">
+    <div class="box box-1" style="--img: url(./img/1.png);" data-text="CosmoArt"></div>
+    <div class="box box-2" style="--img: url(./img/game2.png);" data-text="Mysterious Forest"></div>
+    <div class="box box-3" style="--img: url(./img/game4.png);" data-text="FlyCat"></div>
+   </div>
+   
+</div>
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+   <script>
+    function slowScroll(id){
+        $('html, body').animate({
+               scrollTop: $(id).offset().top
+        }, 500);
+    }
+
+    $(document).on("scroll", function (){
+        if ($(window).scrollTop() === 0)
+        $("header").removeClass("fixed");
+    else
+        $("header").attr("class", "fixed");
+       });
+   </script>
+
+
+
+<div id="apps" style="margin-top: 100px;">
+    <br><br><br>
+    <h1>Apps and games</h1>
+    <div class="image-strip">
+        <a href="C:\Users\ivane\Desktop\appwill\cosmoart.html" class="game g-1" style="--img: url(./img/1.png);" data-text="CosmoArt" target="_blank"></a>
+        <a href="ссылка_для_Angry_Pumpkins" class="game g-4" style="--img: url(./img/game3.png);" data-text="Angry Pumpkins" target="_blank"></a>
+        <a href="ссылка_для_Mysterious_Forest" class="game g-2" style="--img: url(./img/game2.png);" data-text="Mysterious Forest" target="_blank"></a>
+        <a href="ссылка_для_FlyCat" class="game g-3" style="--img: url(./img/game4.png);" data-text="FlyCat" target="_blank"></a>
+        <a href="ссылка_для_Block_Craft" class="game g-5" style="--img: url(./img/game5.png);" data-text="Block Craft" target="_blank"></a>
+    </div>
+    
+    <div class="image-strip2"> 
+        <a href="ссылка_для_CosmoArt" class="game g-6" style="--img: url(./img/game6.png);" data-text="Monster Hunter Now" target="_blank"></a>
+        <a href="ссылка_для_Angry_Pumpkins" class="game g-7" style="--img: url(./img/game7.png);" data-text="Live Weather" target="_blank"></a>
+        <a href="ссылка_для_Mysterious_Forest" class="game g-8" style="--img: url(./img/game8.png);" data-text="Ace Of Race" target="_blank"></a>
+        <a href="ссылка_для_FlyCat" class="game g-9" style="--img: url(./img/game9.png);" data-text="Traffic Life: Car Control" target="_blank"></a>
+        <a href="ссылка_для_Block_Craft" class="game g-10" style="--img: url(./img/game10.png);" data-text="Dancing Music Road" target="_blank"></a>
+    </div>
+
+</div>
+
+
+<div id="aboutt">
+    <br>
+
+    <h1>
+        Selling a game is a good <br>
+        possibility you might not <br>
+        even think about before
+      </h1>
+      <h3>Let us explain why and when this could be beneficial</h3>
+</div>
+
+
+<div class="cards">
+    <div class="cont">
+        <div  class="cards-holder">
+            <div class="card"> 
+                <div class="card-image">
+                    <img class="card-img" src="img\about2-1.png">
+                </div>
+                <div class="card-title">If the game requires too much attention and does not pay off</div>
+                <div class="card-desc">
+                    Maintaining and developing a game is a very laborious endeavor. It is especially difficult to do this when the game is not growing anymore, and its income constantly stagnates. It’s easier <b> sell the game and focus on more promising projects.</b>
+                </div>
+            </div>
+    
+            <div class="card"> 
+                <div class="card-image">
+                    <img class="card-img" src="img\about2-2.png">
+                </div>
+                <div class="card-title">If for some reasons the game cannot be supported anymore</div>
+                <div class="card-desc">
+                    Abandoned games tend to fall slowly but steadily in their income. The game should be sold, the sooner the better, while it has not reached the bottom in terms of income, <b>and the money received can be immediately directed to new and profitable projects.</b>
+                </div>
+            </div>
+    
+            <div class="card"> 
+                <div class="card-image">
+                    <img class="card-img" src="img\about2-3 .png">
+                </div>
+                <div class="card-title">If the game audience and cash flow is rising, now is the time to sell it</div>
+                <div class="card-desc">
+                    A good indicator to establish a gaming product’s value is generally based on its gross last 3-month sales records which is directly proportional in the maximum price. If the game has reached a record profit, then this is a signal that at the current stage <b>it can be sold for the maximum price.</b>
+                </div>
+            </div>
+      
+         </div>
+    </div>
+</div>
+
+
+<div class="titleAAC">
+    About — Appwill Сompany
+</div>
+<div class="mini-title">We develop mobile games and help other studios and
+    developers to sell their games</div>
+ <div class="text-aboutt">
+    We cooperate with game publishers all around the world, from The USA to Pakistan.
+We have a wide network of contacts, and we know who is looking to purchase a
+game of a particular genre for a specific budget. This knowledge helps us to be
+perfect in sales:
+ </div>
+ 
+ 
+ 
+ 
+ <div class="ab-cards">
+    <div class="ab-hold">
+    <div class="ab-card">
+        <div class="ab-image">
+            <img class="ab-img" src="img\about3-1.png" alt="Description of the image">
+        </div>
+        <div class="ab-desc">From casual to horror</div>
+    </div>
+
+    <div class="ab-card">
+        <div class="ab-image">
+            <img class="ab-img" src="img\about3-2.png" alt="Description of the image">
+        </div>
+        <div class="ab-desc">Based on DAU, CPI, and in-store position</div>
+    </div>
+
+    <div class="ab-card">
+        <div class="ab-image">
+            <img class="ab-img" src="img\about3-3.png" alt="Description of the image">
+        </div>
+        <div class="ab-desc">From $2,000 up to $3,000,000</div>
+    </div>
+
+    <div class="ab-card">
+        <div class="ab-image">
+            <img class="ab-img" src="img\about3-4.png" alt="Description of the image">
+        </div>
+        <div class="ab-desc">It takes 30 days on average to complete the transaction</div>
+    </div>
+</div>
+</div>
+
+<div class="grad">
+    Publishers are purchasing games to achieve different goals. If you think that your project is not in range, the publisher may have enough experience and expertise in a particular sphere to buy your game.
+</div>
+
+<br><br><br>
+
+
+<div class="titleAAC">Selling a game is a great way to free up money and team resource</div>
+
+<div class="ab-cards">
+    <div class="ab-hold">
+    <div class="ab-card">
+        <div class="ab-image2">
+            <img class="ab-img2" src="img\icon_6_1.png" alt="Description of the image">
+        </div>
+        <div class="grad"> Sell</div>
+        <div class="ab-desc2">the game and focus on
+            a promising project</div>
+    </div>
+
+    <div class="ab-card">
+        <div class="ab-image2">
+            <img class="ab-img2" src="img\icon_6_2.png" alt="Description of the image">
+        </div>
+        <div class="grad"> Free up</div>
+        <div class="ab-desc2">budgets and direct them
+            to new developments</div>
+    </div>
+
+    <div class="ab-card">
+        <div class="ab-image2">
+            <img class="ab-img2" src="img\icon_6_3.png" alt="Description of the image">
+        </div>
+        <div class="grad"> Get</div>
+        <div class="ab-desc2">a few years income from
+            the game up front</div>
+    </div>
+
+</div>
+</div>
+
+</div>
+</div>
+
+
+
+
+<div id="contact">
+    <div class="footer">
+        <div class="c-hold">
+        <div class="ccard">
+            <div class="black">
+                <a href="#" onclick="slowScroll('#main')"><img class="black_img" src="img/black.png"></a>
+            </div>
+        </div>
+        <div class="ccard">
+            <div class="contact-section">
+                <h2>Contact Us</h2>
+                <br>
+                <p>Email: <a href="mailto:example@example.com">example@example.com</a></p>
+                <p>Phone: +1 123-456-7890</p>
+<br><br>
+                <h3>Follow our Socials</h3><br>
+                <img src="img/t.png" alt="out telegram">
+                <img src="img/f.png" alt="our facebook">
+            </div>
+        </div>
+
+        <div class="ccard">
+            <h2>Our Partners</h2>
+            <br>
+            <div class="partners">
+                <img src="img/p1.png" alt="Image 1">
+                <img src="img/p2.png" alt="Image 1">
+                <img src="img/p3.png" alt="Image 1">
+                <img src="img/p4.png" alt="Image 1">
+                <img src="img/p5.png" alt="Image 1">
+                <img src="img/p6.png" alt="Image 1">
+            </div>
+        </div>
+    </div>
+    </div>
+</div>
+
+
+
+</body>
+
+</html>
+
+
+

@@ -1,0 +1,34 @@
+.color1 {color: #030f21;}
+.color2 {color: #263356;}
+.color3 {color: #5a5c97;}
+.color4 {color: #a18ce2;}
+.color5 {color: #fcc2ff;}
+
+
+
+
+.color1 {color: #120907;}
+.color2 {color: #282538;}
+.color3 {color: #5f5b88;}
+.color4 {color: #a59ee0;}
+.color5 {color: #ebdced;}
+
+
+robo
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
+</style>
+
+lora
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Lora&family=Roboto:wght@300&display=swap');
+</style>
+
+
+
+
+
+https://toucharcade.com/2024/01/01/monster-hunter-now-january-2024-events-list-azure-rathalos-qualilys-special-quests-monster-bone-plus/
+https://www.sellmyapp.com/downloads/live-weather/
+https://www.sellmyapp.com/downloads/ace-of-race/
+https://www.sellmyapp.com/downloads/traffic-life-car-control/

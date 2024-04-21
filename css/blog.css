@@ -1,0 +1,209 @@
+@import url('https://fonts.googleapis.com/css2?family=Lora&family=Roboto:wght@300&display=swap');
+
+
+
+.custom-bg-color{
+    background-color:#dcd1fa;
+}
+
+.img-about{
+   width: 98%;
+   height: 350px;
+  
+}
+
+img{
+    border-radius: 5px;
+}
+
+.bg-color1{
+background-color:  #282538;
+color: white;
+}
+.bg-color2{
+    background-color: #ede9f9;
+
+}
+
+
+header {
+    width: 100%;
+    background: transparent;
+    float: left;
+    position: fixed;
+    padding: 10px;
+    top: 0;
+}
+
+header #logo {
+    cursor: pointer;
+    margin-left: 5%;
+    margin-right: 10px;
+    margin-top: 1%;
+
+}
+
+
+
+
+
+
+
+@import url('https://fonts.googleapis.com/css2?family=Lora&family=Roboto:wght@300&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body, html {
+    width: 100%;
+    height: 100%;
+   
+}
+
+
+
+header {
+    width: 100%;
+    background: transparent;
+    float: left;
+    position: fixed;
+    padding: 10px;
+    top: 0;
+    background-color: #282538;
+}
+
+header #logo {
+    cursor: pointer;
+    margin-left: 5%;
+    margin-right: 10px;
+    margin-top: 1%;
+
+
+}
+
+#logo img {
+    max-height: 40px; /* Set the maximum height for the logo image */
+}
+
+#about {
+    float: right;
+    width: 70%;
+}
+
+#about {
+    text-align: center;
+    font-size: 1em;
+    line-height: 0px;
+    margin-bottom: 15px;
+    
+}
+
+#about > a {color: #fff;}
+
+#about > a:hover{
+    color: #030f21;
+    text-decoration: underline;
+    background-color: #a59ee0;
+    border-radius: 15%;
+    padding: 10px;
+}
+
+#about > a:not(:last-child) {
+    margin-right: 7%;
+
+}
+
+@media (max-width: 700px) {
+    header #logo {
+        height: 20px; /* Adjusted logo height for smaller screens */
+        margin-top: 15px;
+        margin-right: 0; /* Remove right margin for smaller screens */
+        margin-left: 10px;
+    }
+
+    #about {
+        float: left;
+        width: 100%;
+    }
+}
+
+
+.fixed{
+    z-index: 5000;
+
+    border-bottom: 1px solid silver ;
+}
+
+
+.fixed #about a:hover {
+    color: #282538;
+}
+
+
+
+
+
+
+
+.partners img{
+    width: 145px;
+    display: flex;
+}
+
+.contact-section a {
+    color: black;
+    text-decoration: none;
+   
+}
+
+.contact-section a:hover {
+    color: #a18ce2;
+}
+
+
+.contact-section img{
+    width: 60px;
+    height: 60px;
+    margin-left: 10px;
+    
+}
+
+.c-hold{
+    display: flex;
+    justify-content: center;
+    margin-left: 15%;
+}
+
+.ccard{
+    width: 30%;
+    margin-right: 15%;
+    padding: 0px 10px 10px 10px;
+    margin-bottom: 50px;
+
+
+}
+
+
+.footer{
+    background-color: #ebdced;
+    padding: 50px 0px;
+    color: #000000;
+    font-family: 'Trebuchet MS', Helvetica;
+    width: 100%;
+ font-size: 17px;
+    margin-top: 100px;
+}
+.black_img{
+    
+    width: 120px;
+    margin-left: 15%;
+}
+
+
+.title{
+    font-size: 50px;
+    margin-left: 110px;
+    font-family: 'Trebuchet MS', Helvetica;
+}
