@@ -136,7 +136,7 @@ $result = $conn->query($sql);
 
 [продукты](./readmeimg/pps.png)
 
-1.3 Сыылка на страницу, где можно посмотреть все продукты в продаже и поиск по странице реализованная при помощи метода GET скрипт для поиска находится в файле `search_results`.
+1.3 Сылка на страницу, где можно посмотреть все продукты в продаже и поиск по странице реализованная при помощи метода GET скрипт для поиска находится в файле `search_results`.
 
 ```php
     <div class="search-container">
@@ -149,3 +149,36 @@ $result = $conn->query($sql);
 ```
 
 [](./readmeimg/shop.png)
+
+1.4 Раздел о компании и что стоит знать покупателю
+
+[](./readmeimg/about.png)
+
+1.5 Подключение файла,который содержит нижнюю часть страницы 
+
+```php
+<?php require_once("./blocks/footer.php");
+```
+В footer использован JS для отображения даты и времени.
+
+```js
+function updateDateTime() {
+                            var currentDate = new Date();
+                            var options = {
+                                weekday: 'long',
+                                year: 'numeric',
+                                month: 'long',
+                                day: 'numeric',
+                                hour: 'numeric',
+                                minute: 'numeric',
+                                timeZoneName: 'short'
+                            };
+                            var formattedDateTime = currentDate.toLocaleDateString('en-US', options);
+                            document.getElementById("currentDateTime").innerHTML = formattedDateTime;
+                        }
+                        updateDateTime();
+
+                        setInterval(updateDateTime, 1000);
+```
+[footer](./readmeimg/footer.png)
+
