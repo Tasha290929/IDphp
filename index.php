@@ -76,35 +76,33 @@ Search Online Businesses for Sale </h3></div>
          */
 
 
-        if ($result->num_rows > 0) {
-            // Подсчет количества продуктов
-            $product_count = $result->num_rows;
-            // Инициализация переменной для подсчета добавленных продуктов и остановки вывода после 5 продуктов
-            $added_products = 0;
-            // Создание массива для хранения HTML-кода блоков с продуктами
-            $product_blocks = array();
-
-            // Вывод иконок продуктов в обратном порядке
-            while ($row = $result->fetch_assoc()) {
-                // Если добавлено уже 5 продуктов, останавливаем вывод
-                if ($added_products >= 5) {
-                    break;
-                }
-                // Формирование HTML-кода для каждого продукта
-                $product_block = '<a href="product_template.php?id=' . $row['ProductID'] . '" class="game g-' . ($added_products % 5 + 1) . '" style="--img: url(\'/uploads/' . $row['Icon'] . '\');" data-text="' . $row['Name'] . '" target="_blank"></a>';
-                // Добавление HTML-кода продукта в массив
-                array_unshift($product_blocks, $product_block);
-                // Увеличение счетчика добавленных продуктов
-                $added_products++;
-            }
-
-            // Вывод HTML-кода строк с продуктами
-            foreach ($product_blocks as $product_block) {
-                echo $product_block;
-            }
-        } else {
-            echo "No products to display.";
-        }
+         $sql = "SELECT * FROM Product ORDER BY ProductID DESC LIMIT 5";
+         $result = $conn->query($sql);
+         
+         if ($result->num_rows > 0) {
+             // Инициализация переменной для подсчета добавленных продуктов и остановки вывода после 5 продуктов
+             $added_products = 0;
+             // Создание массива для хранения HTML-кода блоков с продуктами
+             $product_blocks = array();
+         
+             // Вывод иконок продуктов в порядке добавления
+             while ($row = $result->fetch_assoc()) {
+                 // Формирование HTML-кода для каждого продукта
+                 $product_block = '<a href="product_template.php?id=' . $row['ProductID'] . '" class="game g-' . ($added_products % 5 + 1) . '" style="--img: url(\'/uploads/' . $row['Icon'] . '\');" data-text="' . $row['Name'] . '" target="_blank"></a>';
+                 // Добавление HTML-кода продукта в массив
+                 $product_blocks[] = $product_block;
+                 // Увеличение счетчика добавленных продуктов
+                 $added_products++;
+             }
+         
+             // Вывод HTML-кода строк с продуктами
+             foreach ($product_blocks as $product_block) {
+                 echo $product_block;
+             }
+         } else {
+             echo "No products to display.";
+         }
+         
         ?>
     </div>
     <br><br><br>
