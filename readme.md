@@ -16,9 +16,8 @@
 
    Сначала склонируйте репозиторий на свой компьютер с помощью команды:
 
-```bash
-https://github.com/Tasha290929/IDphp
-```
+ - [Индивидуальная работа](https://github.com/Tasha290929/IDphp)
+
 2. **Установите PHP**
 
    Убедитесь, что на вашем компьютере установлен PHP и Composer. Если их нет, вы можете скачать их с официальных веб-сайтов:
@@ -571,5 +570,18 @@ $result = $conn->query($sql);
 
 ### <a name="istocniki"> Источники </a>
 
+ - [codeshack](https://codeshack.io/secure-login-system-php-mysql/)
 
+ - [youtube](https://www.youtube.com/)
 
+- [chat](https://chat.openai.com/)
+
+ - [coolors](https://coolors.co/)    
+
+ - [candyfairytales](https://play.google.com/store/apps/details?id=com.gamesio.candyfairytales&hl=en_US)    
+
+и другие 
+
+## ***Вывод:**
+
+В данном проекте была реализована работа с базой данных, сессиями, функциями и др. Для выполнения данной работя я мспользовала HTML, PHP, JS, CSS.
