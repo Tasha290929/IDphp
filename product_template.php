@@ -1,4 +1,10 @@
 <?php
+
+/**
+ * This code snippet retrieves product information from a database based on the provided product ID.
+ * It then displays the product details, including the name, price, platform, engine, and description.
+ * If the product ID is not provided, an error message is displayed.
+ */
 require_once("./blocks/db.php");
 
 // Проверяем, есть ли переданный ID продукта в URL
@@ -17,7 +23,7 @@ if (isset($_GET['id'])) {
     $css1 = "../css/home.css";
     $css2 = "../css/app.css";
     $js = "../js/slider.js";
-$img = "../img/";
+    $img = "../img/";
     require_once("./blocks/header.php"); // Подключение шапки страницы
 ?>
 

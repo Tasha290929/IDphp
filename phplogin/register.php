@@ -1,21 +1,20 @@
 <?php
 session_start();
-// Change this to your connection info.
-$DATABASE_HOST = 'localhost';
-$DATABASE_USER = 'root';
-$DATABASE_PASS = '';
-$DATABASE_NAME = 'appwill';
 
-// Try and connect using the info above.
-$con = mysqli_connect($DATABASE_HOST, $DATABASE_USER, $DATABASE_PASS, $DATABASE_NAME);
-if (mysqli_connect_errno()) {
-    // If there is an error with the connection, stop the script and display the error.
-    exit('Failed to connect to MySQL: ' . mysqli_connect_error());
-}
+require_once("./blocks/db.php");
 
-// Now we check if the data was submitted, isset() function will check if the data exists.
+
+/**
+ * This code snippet validates the registration form data submitted via POST request.
+ * It checks if the required fields (username, password, email) are set and not empty.
+ * It also validates the email format, username format, and password format.
+ * The email format is checked using the FILTER_VALIDATE_EMAIL filter.
+ * The username format is checked using a regular expression that allows only alphanumeric characters.
+ * The password format is checked using a regular expression that requires at least one uppercase letter, one digit, one special character, and a length between 5 and 20 characters.
+ * If any of the validation checks fail, an appropriate error message is displayed and the script exits.
+ */
+
 if (!isset($_POST['username'], $_POST['password'], $_POST['email'])) {
-    // Could not get the data that should have been sent.
     exit('Please complete the registration form!');
 }
 
@@ -33,20 +32,28 @@ if (preg_match('/^[a-zA-Z0-9]+$/', $_POST['username']) == 0) {
     exit('Username is not valid!');
 }
 
-if (strlen($_POST['password']) > 20 || strlen($_POST['password']) < 5) {
-    exit('Password must be between 5 and 20 characters long!');
+if (!preg_match('/^(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*()\-_=+{};:,<.>ยง~]).{5,20}$/', $_POST['password'])) {
+    exit('Password must contain at least one uppercase letter, one digit, and one special character, and be between 5 and 20 characters long!');
 }
 
-// We need to check if the account with that username exists.
+
+/**
+ * This code snippet checks if a username already exists in the database.
+ * If the username exists, it displays an error message.
+ * If the username doesn't exist, it inserts a new account into the database with the provided username, password, email, and activation code.
+ * The password is hashed using the password_hash function to ensure security.
+ * If the account is successfully inserted, the user is redirected to the index.php page and the session variable 'loggedin' is set to true.
+ * If there is an error with the SQL statement or the registration fails, an appropriate error message is displayed.
+ * The database connection is closed at the end of the code snippet.
+ */
+
 $stmt = $con->prepare('SELECT id FROM accounts WHERE username = ?');
 if ($stmt) {
-    // Bind parameters (s = string, i = int, b = blob, etc)
     $stmt->bind_param('s', $_POST['username']);
     $stmt->execute();
     $stmt->store_result();
     // Store the result so we can check if the account exists in the database.
     if ($stmt->num_rows > 0) {
-        // Username already exists
         echo 'Username exists, please choose another!';
     } else {
         // Username doesn't exists, insert new account

@@ -1,4 +1,20 @@
 <?php
+
+/**
+ * This code snippet handles the addition and deletion of products in a database.
+ * 
+ * It starts by checking if the request method is POST and if the "add_product" parameter is set.
+ * If true, it retrieves the product details from the POST data and inserts them into the "products" table in the database.
+ * If the insertion is successful, it echoes a success message. Otherwise, it echoes an error message.
+ * 
+ * Next, it checks if the request method is POST and if the "delete_product" parameter is set.
+ * If true, it retrieves the product ID from the POST data and deletes the corresponding product from the "products" table in the database.
+ * If the deletion is successful, it echoes a success message. Otherwise, it echoes an error message.
+ * 
+ * Finally, it retrieves all the products from the "products" table and displays them in a table on the webpage.
+ * 
+ * Note: This code assumes the existence of a database connection object ($conn) and a "products" table in the database.
+ */
 session_start();
 
 
@@ -38,11 +54,13 @@ $result = mysqli_query($conn, $sql);
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Администратор</title>
 </head>
+
 <body>
     <h1>Добавить продукт</h1>
     <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
@@ -68,17 +86,29 @@ $result = mysqli_query($conn, $sql);
             <th>Иконка игры</th>
             <th>Описание</th>
         </tr>
-        <?php while ($row = mysqli_fetch_assoc($result)): ?>
-        <tr>
-            <td><?php echo $row["id"]; ?></td>
-            <td><?php echo $row["name"]; ?></td>
-            <td><?php echo $row["price"]; ?></td>
-            <td><?php echo $row["icon"]; ?></td>
-            <td><?php echo $row["description"]; ?></td>
-        </tr>
+        <?php
+        /**
+         * This code snippet generates an HTML table displaying a list of products.
+         * 
+         * The table has the following columns: ID, Название, Цена, Иконка игры, Описание.
+         * 
+         * It uses a while loop to iterate through the result set obtained from the database query.
+         * For each row in the result set, it creates a table row (<tr>) and populates it with the corresponding values from the row.
+         * 
+         * Note: This code assumes the existence of a database connection object ($conn) and a "products" table in the database.
+         */
+        while ($row = mysqli_fetch_assoc($result)) : ?>
+            <tr>
+                <td><?php echo $row["id"]; ?></td>
+                <td><?php echo $row["name"]; ?></td>
+                <td><?php echo $row["price"]; ?></td>
+                <td><?php echo $row["icon"]; ?></td>
+                <td><?php echo $row["description"]; ?></td>
+            </tr>
         <?php endwhile; ?>
     </table>
 </body>
+
 </html>
 
-<?php mysqli_close($conn); ?>
+<?php mysqli_close($conn); 

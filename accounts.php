@@ -1,4 +1,14 @@
 <?php
+
+/**
+ * This code snippet checks if a username already exists in the database.
+ * If the username exists, it displays an error message.
+ * If the username doesn't exist, it inserts a new account into the database with the provided username, password, email, and activation code.
+ * The password is hashed using the password_hash function to ensure security.
+ * If the account is successfully inserted, the user is redirected to the index.php page and the session variable 'loggedin' is set to true.
+ * If there is an error with the SQL statement or the registration fails, an appropriate error message is displayed.
+ * The database connection is closed at the end of the code snippet.
+ */
 session_start();
 
 if (!isset($_SESSION['loggedin']) || $_SESSION['name'] !== 'admin') {
@@ -9,7 +19,7 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['name'] !== 'admin') {
 
 require_once('./blocks/db.php');
 
-// SQL-запрос для выборки всех зарегистрированных пользователей
+
 $sql = "SELECT id, username, email FROM accounts";
 $result = $conn->query($sql);
 

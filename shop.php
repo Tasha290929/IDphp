@@ -1,4 +1,11 @@
 <?php
+/**
+ * This code snippet includes several PHP require_once statements to include necessary files and resources.
+ * It includes the db.php file, which likely contains the database connection code.
+ * It also includes CSS and JavaScript files for styling and functionality.
+ * Additionally, it includes the header.php file, which likely contains the header section of the HTML document.
+ * This code snippet is typically used at the beginning of a PHP file to include necessary dependencies and resources.
+ */
 require_once("./blocks/db.php");
 
 
@@ -68,6 +75,13 @@ $result = $conn->query($sql);
 
 <div class="product-container">
     <?php
+    /**
+ * This code snippet is a part of a PHP script that displays product cards with brief information.
+ * It checks if there are any products to display and then loops through the result set to generate the product cards.
+ * Each product card includes an image, name, and price.
+ * After every 5th product, a empty block is added for alignment purposes.
+ * If there are no products to display, it outputs a message indicating so.
+ */
     // Проверка наличия продуктов
     if ($result->num_rows > 0) {
         // Вывод иконок продуктов с краткой информацией

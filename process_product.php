@@ -1,4 +1,13 @@
 <?php
+
+/**
+ * This code snippet is a PHP script that handles the submission of a product form.
+ * It performs validation on the form fields and checks for errors.
+ * If there are no errors, it uploads the product image and inserts the product data into the database.
+ * The script uses the $_POST and $_FILES superglobals to access form data and uploaded files.
+ * It also includes a database connection and executes an SQL query to insert the data into the "Product" table.
+ * The script outputs success or error messages depending on the result of the database query.
+ */
 require_once("./blocks/db.php");
 
 $errors = array();
@@ -29,11 +38,11 @@ if (!empty($errors)) {
 // Обработка загрузки изображения продукта
 $target_dir = "uploads/";
 $target_file = $target_dir . basename($_FILES["icon"]["name"]);
-$imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
+$imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
 
 // Перемещение файла из временной директории в указанную
 if (move_uploaded_file($_FILES["icon"]["tmp_name"], $target_file)) {
-    echo "The file ". htmlspecialchars( basename( $_FILES["icon"]["name"])). " has been uploaded.";
+    echo "The file " . htmlspecialchars(basename($_FILES["icon"]["name"])) . " has been uploaded.";
 } else {
     echo "Sorry, there was an error uploading your file.";
 }
