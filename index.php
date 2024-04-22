@@ -65,7 +65,7 @@ Search Online Businesses for Sale </h3></div>
 
 <div id="apps" style="margin-top: 100px;">
     <h1>Apps and games</h1>
-    <div class="image-strip">
+    <div class="image-strip" >
         <?php
         /**
          * This code snippet retrieves data from a database table named "Product" and displays the product icons.
