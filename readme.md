@@ -455,8 +455,7 @@ if ($stmt) {
 
 Проверяем существует лм пользователь с таким именем м паролем если это пользователь админ то перекидываем его на страницу добавления продукта, если любой другой то на главную страницу.
 
-      ```php
-      
+```php      
 if ($stmt = $con->prepare('SELECT id, password FROM accounts WHERE username = ?')) {
     // Bind parameters (s = string, i = int, b = blob, etc), in our case the username is a string so we use "s"
     $stmt->bind_param('s', $_POST['username']);
@@ -493,5 +492,4 @@ if ($stmt = $con->prepare('SELECT id, password FROM accounts WHERE username = ?'
 
     $stmt->close();
 }
-?>
 ```
