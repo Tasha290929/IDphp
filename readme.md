@@ -16,9 +16,9 @@
 
    Сначала склонируйте репозиторий на свой компьютер с помощью команды:
 
-    ```bash
+```bash
 https://github.com/Tasha290929/IDphp
-    ```
+```
 2. **Установите PHP**
 
    Убедитесь, что на вашем компьютере установлен PHP и Composer. Если их нет, вы можете скачать их с официальных веб-сайтов:
@@ -493,3 +493,83 @@ if ($stmt = $con->prepare('SELECT id, password FROM accounts WHERE username = ?'
     $stmt->close();
 }
 ```
+
+10. Магазин где отображаютяс все продукты `shop.php`
+
+10.1 подключаем базу данных и выбираем все продукты 
+
+```php
+$sql = "SELECT * FROM Product";
+$result = $conn->query($sql);
+?>
+```
+
+10.2 Отображаем все продукты из таблицы на сайте 
+
+```php
+  if ($result->num_rows > 0) {
+                // Вывод иконок продуктов с краткой информацией
+                $counter = 0;
+                while ($row = $result->fetch_assoc()) {
+                    echo '<div class="product-card">';
+                    echo '<a href="product_template.php?id=' . $row['ProductID'] . '"><img src="/uploads/' . $row['Icon'] . '" alt="' . $row['Name'] . '"></a>';
+                    echo '<p><strong>' . $row['Name'] . '</strong></p>';
+                    echo '<p>$' . number_format($row['Price'], 2) . '</p>';
+                    echo '</div>';
+                    // После каждого 5-го элемента добавляем пустой блок для выравнивания
+                    $counter++;
+                    if ($counter % 5 == 0) {
+                        echo '<div style="flex-basis: 100%;"></div>';
+                    }
+                }
+            } else {
+                echo "No products to display.";
+            }
+```
+
+![shop](./readmeimg/shops.png)
+
+11. Поиск по странице `searche_result.php`
+
+Поиск происходит при помощи sql запроса, ищет совпадения в названии и в описании продуктов. Выводится в соответствии с прописанными стилями и html кода. 
+
+```php
+ if (isset($_GET['query'])) {
+        $search_query = $_GET['query'];
+        // SQL запрос для поиска совпадений по полям Name и Description
+        $sql = "SELECT * FROM Product WHERE Name LIKE '%$search_query%' OR Description LIKE '%$search_query%'";
+        $result = $conn->query($sql);
+
+        if ($result->num_rows > 0) {
+            // Вывод результатов поиска
+            while ($row = $result->fetch_assoc()) {
+                // Подсветка совпадений в полях Name и Description
+                $name = str_ireplace($search_query, '<span class="highlight">' . $search_query . '</span>', $row['Name']);
+                $description = str_ireplace($search_query, '<span class="highlight">' . $search_query . '</span>', $row['Description']);
+
+                // Оборачиваем всю карточку в тег <a> и указываем ссылку на страницу продукта
+                echo "<a href='product_template.php?id={$row['ProductID']}' class='product-card'>";
+                echo "<img src='/uploads/{$row['Icon']}' alt='{$row['Name']}'>";
+                echo "<div class='product-info'>";
+                echo "<p><strong>{$name}</strong></p>";
+                echo "<p>Price: $" . number_format($row['Price'], 2) . "</p>";
+                echo "<p>Platform: {$row['Platform']}</p>";
+                echo "<p>Engine: {$row['Engine']}</p>";
+                echo "<p>Description: {$description}</p>";
+                echo "</div>";
+                echo "</a>";
+            }
+        } else {
+            echo "No results found.";
+        }
+    }
+    $conn->close();
+    ?>
+```
+
+![search](./readmeimg/search.png)
+
+### <a name="istocniki"> Источники </a>
+
+
+
