@@ -17,7 +17,7 @@
    Сначала склонируйте репозиторий на свой компьютер с помощью команды:
 
     ```bash
-    git clone https://github.com/CalinNicolai/Web-Programming-Lab-2.git
+https://github.com/Tasha290929/IDphp
     ```
 2. **Установите PHP**
 
@@ -99,7 +99,7 @@ $result = $conn->query($sql);
 
 1.1 Титульная страница проекта (первое что видит пользователь заходя на сайт)
 
-[Титульная страница проекта](./readmeimg/home_page.png)
+![Титульная страница проекта](./readmeimg/home_page.png)
 
 1.2 Лента с ссылками-картинками на продукты 
 
@@ -134,7 +134,7 @@ $result = $conn->query($sql);
          }
 ```
 
-[продукты](./readmeimg/pps.png)
+![продукты](./readmeimg/pps.png)
 
 1.3 Сылка на страницу, где можно посмотреть все продукты в продаже и поиск по странице реализованная при помощи метода GET скрипт для поиска находится в файле `search_results`.
 
@@ -148,11 +148,11 @@ $result = $conn->query($sql);
 </div>
 ```
 
-[](./readmeimg/shop.png)
+![все продукты](./readmeimg/shop.png)
 
 1.4 Раздел о компании и что стоит знать покупателю
 
-[](./readmeimg/about.png)
+![Раздел о компании](./readmeimg/about.png)
 
 1.5 Подключение файла,который содержит нижнюю часть страницы 
 
@@ -180,5 +180,318 @@ function updateDateTime() {
 
                         setInterval(updateDateTime, 1000);
 ```
-[footer](./readmeimg/footer.png)
+![footer](./readmeimg/footer.png)
 
+1.6 `header.php` содержит скрипт для отображения меню на сайте страницы 
+
+Я поключала этот файл во все страницы поэтому при помощи php в `header.php` я переключаю стили и некоторые параметры меню если пользователь зарегистрирован 
+
+```php
+  session_start();
+                    // Проверяем, есть ли начатая сессия
+                    if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
+                        // Если сессия начата (пользователь авторизован или зарегистрирован), выводим кнопку выхода
+                        echo '<a href="./phplogin/logout.php" onclick="slowScroll(\'#top\')">Logout</a>';
+                    } else {
+                        // Если сессия не начата, выводим ссылки на страницы авторизации и регистрации
+                        echo '<a href="../phplogin/athorization.html" onclick="slowScroll(\'#aboutt\')">LogIn</a>';
+                        echo '<a href="../phplogin/register.html" onclick="slowScroll(\'#contact\')">SingIn</a>';
+                    }
+```
+![menu](./readmeimg/menu.png)
+
+2. Скрипт для подключения к базе данных `bd.php`
+
+```sql
+$dbname = "appwill"; 
+$servername = "localhost";
+$username = "root"; // Имя пользователя базы данных
+$password = ""; // Пароль базы данных
+
+
+// Создание подключения
+$conn = @new mysqli($servername, $username, $password, $dbname);
+if ($conn->connect_error) exit('Ошибка подключения BD');
+$conn->set_charset('utf8');
+```
+
+3. Страницу продукта можно создать через аккаунт админа `addproduct.php`
+
+3.1. Проверяем кто начал сессию если имя пользовател admin, то отправляем его на страницу добавления продуктов, если нет то на главную страницу. 
+
+```sql
+session_start();
+
+if (!isset($_SESSION['loggedin']) || $_SESSION['name'] !== 'admin') {
+    header('Location: index.php');
+    exit;
+}
+```
+
+После заполнения формы данные пердаются на файлу `procces_product.php`, где обрабатываются.
+
+![форма](./readmeimg/add.png)
+
+4. Обработка и добавление в базу данных продуктов `procces_product.php`
+
+4.1 Подключаем базу данных
+
+```sql
+require_once("./blocks/db.php");
+```
+
+4.2 Поверяем на заполнение всех полей 
+
+```php
+if (empty($_POST['name'])) {
+    $errors['name'] = "Name is required";
+}
+
+if (empty($_POST['description'])) {
+    $errors['description'] = "Description is required";
+}
+
+if (empty($_POST['price'])) {
+    $errors['price'] = "Price is required";
+}
+
+if (empty($_FILES['icon']['name'])) {
+    $errors['icon'] = "Product image is required";
+}
+
+if (!empty($errors)) {
+    include 'add_product.php'; // Путь к странице добавления продукта
+    exit;
+}
+```
+
+4.3 Получаем и сохраняем добавленное изображение
+
+```php
+$target_dir = "uploads/";
+$target_file = $target_dir . basename($_FILES["icon"]["name"]);
+$imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+
+// Перемещение файла из временной директории в указанную
+if (move_uploaded_file($_FILES["icon"]["tmp_name"], $target_file)) {
+    echo "The file " . htmlspecialchars(basename($_FILES["icon"]["name"])) . " has been uploaded.";
+} else {
+    echo "Sorry, there was an error uploading your file.";
+}
+```
+
+4.4 Добавляем полученные данные в базу данных
+
+```php
+$name = $_POST['name'];
+$description = $_POST['description'];
+$price = $_POST['price'];
+$icon = basename($_FILES["icon"]["name"]); // Здесь сохраняем только название файла
+$gameplay = isset($_POST['gameplay']) ? $_POST['gameplay'] : '';
+$engine = isset($_POST['engine']) ? $_POST['engine'] : '';
+$platform = isset($_POST['platform']) ? $_POST['platform'] : '';
+
+$sql = "INSERT INTO Product (Name, Description, Price, Icon, Gameplay, Engine, Platform) 
+        VALUES ('$name', '$description', '$price', '$icon', '$gameplay', '$engine', '$platform')";
+
+if ($conn->query($sql) === TRUE) {
+    echo "New record created successfully";
+} else {
+    echo "Error: " . $sql . "<br>" . $conn->error;
+}
+```
+
+5. Отображение продуктов `product_template.php`
+
+Для отображения продуктов я использовала скрипт
+
+```php
+    $sql = "SELECT * FROM Product WHERE ProductID = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("i", $product_id);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $row = $result->fetch_assoc();
+```
+
+в котором получаю данные о продукте из базы данных и вывожу их в нужных местах Html страницы.
+
+```html
+ <div class="price">Price $<?php echo number_format($row['Price'], 2); ?></div>
+                    <div class="platform">Platform: <?php echo $row['Platform']; ?></div>
+                    <div class="engine">Engine: <?php echo $row['Engine']; ?></div>
+```
+
+![product](./readmeimg/pr.png)
+
+6. Админ так же может посмотреть страницу всех зарегистрированных пользователей `accounts.php`
+
+6.1 Проверка имени пользователя и подключение базы данных
+
+```php
+session_start();
+
+if (!isset($_SESSION['loggedin']) || $_SESSION['name'] !== 'admin') {
+    // Если пользователь не администратор, перенаправляем его на index.php
+    header('Location: index.php');
+    exit;
+}
+
+require_once('./blocks/db.php');
+```
+
+6.2 Скрипт для вывода пользователей в виде таблицы 
+
+```php
+if ($result->num_rows > 0) {
+            // Выводим данные каждого пользователя в таблицу
+            while ($row = $result->fetch_assoc()) {
+                echo "<tr>";
+                echo "<td>" . $row["id"] . "</td>";
+                echo "<td>" . $row["username"] . "</td>";
+                echo "<td>" . $row["email"] . "</td>";
+                echo "</tr>";
+            }
+        } else {
+            // Если нет зарегистрированных пользователей, выводим сообщение
+            echo "<tr><td colspan='3'>No registered users found</td></tr>";
+        }
+```
+
+![accounts](./readmeimg/accounts.png)
+
+7. Скрипт для завершения сессии
+
+```php
+session_destroy();
+header('Location: ../index.php');
+```
+
+8. Страница регистрации `register.php`
+
+![Страница регистрации](./readmeimg/reg.png)
+
+8.1 Проверка на заполнение полей и выполнения всех требований, требования прописаны при помощи регулярных выражений. Пароль должен состоять из 5-20 символов, использовать строчную и заглавную букву. В имени могут быть использованны только буквы и цифры. Почта поверяется встроенной функцией  `FILTER_VALIDATE_EMAIL`.
+
+```php
+if (!isset($_POST['username'], $_POST['password'], $_POST['email'])) {
+    // Could not get the data that should have been sent.
+    displayErrorPage('Please complete the registration form!');
+    exit();
+}
+
+// Make sure the submitted registration values are not empty.
+if (empty($_POST['username']) || empty($_POST['password']) || empty($_POST['email'])) {
+    // One or more values are empty.
+    displayErrorPage('Please complete the registration form!');
+    exit();
+}
+
+if (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
+    displayErrorPage('Email is not valid!');
+    exit();
+}
+
+if (preg_match('/^[a-zA-Z0-9]+$/', $_POST['username']) == 0) {
+    displayErrorPage('Username is not valid!');
+    exit();
+}
+
+if (!preg_match('/^(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*()\-_=+{};:,<.>ยง~]).{5,20}$/', $_POST['password'])) {
+    displayErrorPage("Password must contain at least one uppercase letter, one digit, and one special character, and be between 5 and 20 characters long!");
+    exit();
+}
+```
+
+Все ошибки выводятся в формате:
+
+![error](./readmeimg//error.png)
+
+8.2 Если ошибок не наблюдается, то добавляем пользователя в базу данных
+
+```php
+// We need to check if the account with that username exists.
+$stmt = $con->prepare('SELECT id FROM accounts WHERE username = ?');
+if ($stmt) {
+    // Bind parameters (s = string, i = int, b = blob, etc)
+    $stmt->bind_param('s', $_POST['username']);
+    $stmt->execute();
+    $stmt->store_result();
+    // Store the result so we can check if the account exists in the database.
+    if ($stmt->num_rows > 0) {
+        // Username already exists
+        displayErrorPage('Username exists, please choose another!');
+        exit();
+    } else {
+        // Username doesn't exists, insert new account
+        $stmt = $con->prepare('INSERT INTO accounts (username, password, email, activation_code) VALUES (?, ?, ?, ?)');
+        if ($stmt) {
+            // We do not want to expose passwords in our database, so hash the password and use password_verify when a user logs in.
+            $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
+            $uniqid = uniqid();
+            $stmt->bind_param('ssss', $_POST['username'], $password, $_POST['email'], $uniqid);
+            if ($stmt->execute()) {
+                // Registration successful
+                $_SESSION['loggedin'] = true;
+                header('Location: ../index.php');
+                exit();
+            } else {
+                // Registration failed
+                displayErrorPage('Registration failed. Please try again later.');
+                exit();
+            }
+        } else {
+            // Something is wrong with the SQL statement
+            displayErrorPage('Could not prepare statement!');
+            exit();
+        }
+    }
+    $stmt->close();
+```
+
+9. Авторизация пользователя `authorization.php`
+
+![authorization](./readmeimg/authorization.png)
+
+Проверяем существует лм пользователь с таким именем м паролем если это пользователь админ то перекидываем его на страницу добавления продукта, если любой другой то на главную страницу.
+
+      ```php
+      
+if ($stmt = $con->prepare('SELECT id, password FROM accounts WHERE username = ?')) {
+    // Bind parameters (s = string, i = int, b = blob, etc), in our case the username is a string so we use "s"
+    $stmt->bind_param('s', $_POST['username']);
+    $stmt->execute();
+    // Store the result so we can check if the account exists in the database.
+    $stmt->store_result();
+    if ($stmt->num_rows > 0) {
+        $stmt->bind_result($id, $password);
+        $stmt->fetch();
+        if (password_verify($_POST['password'], $password)) {
+            // Verification success! User has logged-in!
+            // Create sessions, so we know the user is logged in, they basically act like cookies but remember the data on the server.
+            session_regenerate_id();
+            $_SESSION['loggedin'] = TRUE;
+            $_SESSION['name'] = $_POST['username'];
+            $_SESSION['id'] = $id;
+            if ($_POST['username'] === 'admin' && $id === 3) {
+                // If the user is admin, redirect to addproduct.php
+                header('Location: ../addproduct.php');
+                exit;
+            } else {
+                // For other users, redirect to index.php
+                header('Location: ../index.php');
+                exit;
+            }
+        } else {
+            displayErrorPage('Incorrect password!');
+            exit();
+        }
+    } else {
+        displayErrorPage('Incorrect username!');
+        exit();
+    }
+
+    $stmt->close();
+}
+?>
+```

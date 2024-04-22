@@ -1,60 +1,102 @@
 <?php
 session_start();
 
-require_once("./blocks/db.php");
+// Change this to your connection info.
+$DATABASE_HOST = 'localhost';
+$DATABASE_USER = 'root';
+$DATABASE_PASS = '';
+$DATABASE_NAME = 'appwill';
 
+// Try and connect using the info above.
+$con = mysqli_connect($DATABASE_HOST, $DATABASE_USER, $DATABASE_PASS, $DATABASE_NAME);
+if (mysqli_connect_errno()) {
+    // If there is an error with the connection, stop the script and display the error.
+    displayErrorPage('Failed to connect to MySQL: ' . mysqli_connect_error());
+    exit();
+}
 
-/**
- * This code snippet validates the registration form data submitted via POST request.
- * It checks if the required fields (username, password, email) are set and not empty.
- * It also validates the email format, username format, and password format.
- * The email format is checked using the FILTER_VALIDATE_EMAIL filter.
- * The username format is checked using a regular expression that allows only alphanumeric characters.
- * The password format is checked using a regular expression that requires at least one uppercase letter, one digit, one special character, and a length between 5 and 20 characters.
- * If any of the validation checks fail, an appropriate error message is displayed and the script exits.
- */
+function displayErrorPage($errorMessage) {
+    echo '
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Error</title>
+            <style>
+                body {
+                    margin: 0;
+                    padding: 0;
+                    font-family: Arial, sans-serif;
+                    background-image: url("../img/error.png");
+                    background-size: cover;
+                    background-position: center;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    height: 100vh;
+                }
 
+                .error-message {
+                    background-color: rgba(255, 255, 255, 0.8);
+                    color: #721c24;
+                    border: 1px solid #f5c6cb;
+                    padding: 20px;
+                    max-width: 80%;
+                    text-align: center;
+                }
+            </style>
+        </head>
+        <body>
+            <div class="error-message">
+                <strong>Error:</strong> ' . $errorMessage . '
+            </div>
+        </body>
+        </html>
+    ';
+}
+
+// Now we check if the data was submitted, isset() function will check if the data exists.
 if (!isset($_POST['username'], $_POST['password'], $_POST['email'])) {
-    exit('Please complete the registration form!');
+    // Could not get the data that should have been sent.
+    displayErrorPage('Please complete the registration form!');
+    exit();
 }
 
 // Make sure the submitted registration values are not empty.
 if (empty($_POST['username']) || empty($_POST['password']) || empty($_POST['email'])) {
     // One or more values are empty.
-    exit('Please complete the registration form');
+    displayErrorPage('Please complete the registration form!');
+    exit();
 }
 
 if (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
-    exit('Email is not valid!');
+    displayErrorPage('Email is not valid!');
+    exit();
 }
 
 if (preg_match('/^[a-zA-Z0-9]+$/', $_POST['username']) == 0) {
-    exit('Username is not valid!');
+    displayErrorPage('Username is not valid!');
+    exit();
 }
 
 if (!preg_match('/^(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*()\-_=+{};:,<.>ยง~]).{5,20}$/', $_POST['password'])) {
-    exit('Password must contain at least one uppercase letter, one digit, and one special character, and be between 5 and 20 characters long!');
+    displayErrorPage("Password must contain at least one uppercase letter, one digit, and one special character, and be between 5 and 20 characters long!");
+    exit();
 }
 
-
-/**
- * This code snippet checks if a username already exists in the database.
- * If the username exists, it displays an error message.
- * If the username doesn't exist, it inserts a new account into the database with the provided username, password, email, and activation code.
- * The password is hashed using the password_hash function to ensure security.
- * If the account is successfully inserted, the user is redirected to the index.php page and the session variable 'loggedin' is set to true.
- * If there is an error with the SQL statement or the registration fails, an appropriate error message is displayed.
- * The database connection is closed at the end of the code snippet.
- */
-
+// We need to check if the account with that username exists.
 $stmt = $con->prepare('SELECT id FROM accounts WHERE username = ?');
 if ($stmt) {
+    // Bind parameters (s = string, i = int, b = blob, etc)
     $stmt->bind_param('s', $_POST['username']);
     $stmt->execute();
     $stmt->store_result();
     // Store the result so we can check if the account exists in the database.
     if ($stmt->num_rows > 0) {
-        echo 'Username exists, please choose another!';
+        // Username already exists
+        displayErrorPage('Username exists, please choose another!');
+        exit();
     } else {
         // Username doesn't exists, insert new account
         $stmt = $con->prepare('INSERT INTO accounts (username, password, email, activation_code) VALUES (?, ?, ?, ?)');
@@ -67,20 +109,23 @@ if ($stmt) {
                 // Registration successful
                 $_SESSION['loggedin'] = true;
                 header('Location: ../index.php');
-                exit;
+                exit();
             } else {
                 // Registration failed
-                echo 'Registration failed. Please try again later.';
+                displayErrorPage('Registration failed. Please try again later.');
+                exit();
             }
         } else {
             // Something is wrong with the SQL statement
-            echo 'Could not prepare statement!';
+            displayErrorPage('Could not prepare statement!');
+            exit();
         }
     }
     $stmt->close();
 } else {
     // Something is wrong with the SQL statement
-    echo 'Could not prepare statement!';
+    displayErrorPage('Could not prepare statement!');
+    exit();
 }
 
 $con->close();

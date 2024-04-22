@@ -1,17 +1,69 @@
 <?php
-/**
- * This code snippet is a PHP script that handles user login functionality.
- * It starts a session, connects to a database, and checks if the provided username and password match an account in the database.
- * If the login is successful, it creates session variables to indicate that the user is logged in and redirects them to the appropriate page.
- * If the login fails, it displays an error message indicating whether the username or password is incorrect.
- */
 session_start();
 
-require_once("./blocks/db.php");
+// Change this to your connection info.
+$DATABASE_HOST = 'localhost';
+$DATABASE_USER = 'root';
+$DATABASE_PASS = '';
+$DATABASE_NAME = 'appwill';
 
+
+function displayErrorPage($errorMessage) {
+    echo '
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Error</title>
+            <style>
+                body {
+                    margin: 0;
+                    padding: 0;
+                    font-family: Arial, sans-serif;
+                    background-image: url("../img/error.png");
+                    background-size: cover;
+                    background-position: center;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    height: 100vh;
+                }
+
+                .error-message {
+                    background-color: rgba(255, 255, 255, 0.8);
+                    color: #721c24;
+                    border: 1px solid #f5c6cb;
+                    padding: 20px;
+                    max-width: 80%;
+                    text-align: center;
+                }
+            </style>
+        </head>
+        <body>
+            <div class="error-message">
+                <strong>Error:</strong> ' . $errorMessage . '
+            </div>
+        </body>
+        </html>
+    ';
+}
+
+// Try and connect using the info above.
+$con = mysqli_connect($DATABASE_HOST, $DATABASE_USER, $DATABASE_PASS, $DATABASE_NAME);
+if (mysqli_connect_errno()) {
+    // If there is an error with the connection, stop the script and display the error.
+    displayErrorPage('Failed to connect to MySQL: ' . mysqli_connect_error());
+    exit();
+}
+
+
+
+// Now we check if the data from the login form was submitted, isset() will check if the data exists.
 if (!isset($_POST['username'], $_POST['password'])) {
     // Could not get the data that should have been sent.
-    exit('Please fill both the username and password fields!');
+    displayErrorPage('Please fill both the username and password fields!');
+    exit();
 }
 
 if ($stmt = $con->prepare('SELECT id, password FROM accounts WHERE username = ?')) {
@@ -40,11 +92,14 @@ if ($stmt = $con->prepare('SELECT id, password FROM accounts WHERE username = ?'
                 exit;
             }
         } else {
-            echo 'Incorrect password!';
+            displayErrorPage('Incorrect password!');
+            exit();
         }
     } else {
-        echo 'Incorrect username!';
+        displayErrorPage('Incorrect username!');
+        exit();
     }
 
     $stmt->close();
 }
+?>
